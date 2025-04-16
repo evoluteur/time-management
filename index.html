@@ -236,10 +236,6 @@
         background-color: #008a20 !important;
       }
 
-      .l-retired,
-      .l-school {
-        color: silver;
-      }
       .l-dodo {
         color: #4f94d4;
       }
@@ -505,7 +501,7 @@
         const myInterval = setInterval(() => {
           nodes[i]?.classList.add("expired");
           i++;
-          t.innerHTML = `${totalCount - i} months`;
+          t.innerHTML = `${totalCount - i} months to go`;
           if (i > stopIdx) {
             clearInterval(myInterval);
             setTimeout(() => {
