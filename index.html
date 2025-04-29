@@ -61,6 +61,10 @@
         > div {
           > div {
             margin: 20px 0;
+            > div {
+              display: inline-block;
+              white-space: nowrap;
+            }
           }
         }
         label {
@@ -724,22 +728,28 @@
         <div>
           <div>
             <label>Your age</label>
-            <input id="age" type="number" min="20" max="100" /> years
-            <input id="ageM" type="number" min="0" max="12" /> months
+            <div><input id="age" type="number" min="20" max="100" /> years</div>
+            <div><input id="ageM" type="number" min="0" max="12" /> months</div>
           </div>
           <div>
             <label>Life expectancy</label>
-            <input id="expectancy" type="number" min="60" max="120" /> years
+            <div>
+              <input id="expectancy" type="number" min="60" max="120" /> years
+            </div>
           </div>
         </div>
         <div>
           <div>
             <label>Age at graduation</label>
-            <input id="etudes" type="number" min="16" max="35" /> years
+            <div>
+              <input id="etudes" type="number" min="16" max="35" /> years
+            </div>
           </div>
           <div>
             <label>Retirement age</label>
-            <input id="retraite" type="number" min="18" max="120" /> years
+            <div>
+              <input id="retraite" type="number" min="18" max="120" /> years
+            </div>
           </div>
         </div>
         <svg
