@@ -303,24 +303,21 @@
     <script>
       const today = new Date();
       const currentYear = today.getFullYear();
-      const calcAge = () => {
-        const bDate = new Date("1969-07-26");
-        let age = today.getFullYear() - bDate.getFullYear();
-        const monthDiff = today.getMonth() - bDate.getMonth();
-        if (
-          monthDiff < 0 ||
-          (monthDiff === 0 && today.getDate() < bDate.getDate())
-        ) {
-          age--;
-        }
-        return age;
-      };
+      const bDate = new Date("1969-09-26");
+      let age = today.getFullYear() - bDate.getFullYear();
+      const monthDiff = today.getMonth() - bDate.getMonth();
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < bDate.getDate())
+      ) {
+        age--;
+      }
       const loloConfig = {
         etudes: 22,
         retraite: 64,
         expectancy: 84,
-        age: calcAge(),
-        ageM: 7,
+        age,
+        ageM: monthDiff < 0 ? -monthDiff : 0,
       };
       const fields = ["etudes", "retraite", "expectancy", "age", "ageM"];
       const $ = (id) => document.getElementById(id);
@@ -348,7 +345,7 @@
         config = {};
         fields.forEach((fid) => {
           const f = $(fid);
-          const fv = parseInt(f.value);
+          const fv = parseInt(f.value) || 0;
           if (fid != "ageM" && !fv) {
             invalid = true;
             f.className = "invalid";
@@ -712,7 +709,7 @@
           sommeil (${mSleep} mois) - Temps travail pendant la vie active (${mWork} mois) = ${mPerso} mois (${mVA} – ${mSleep} – ${mWork})</p>
         </div>
         <p><br/><a href="javascript:print()" class="print">Imprimer</a></p>
-        <p class="cp"><br/><br/>© ${currentYear} Laurent Pellet & Olivier Giulieri</p>`;
+        <p class="cp"><br/><br/>© ${currentYear} <a href="https://www.laurentpellet.com" target="lp">Laurent Pellet</a> - developed by <a href="https://evoluteur.github.io/" target="og">Olivier Giulieri</a></p>`;
       }
     </script>
   </head>
