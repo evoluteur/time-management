@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Time Management</title>
+    <title>Gestion du Temps</title>
     <link href="css/time.css" rel="stylesheet" />
 
     <script>
@@ -116,7 +116,7 @@
           const myInterval = setInterval(() => {
             nodes[i].style = "";
             i++;
-            t.innerHTML = `${i} months`;
+            t.innerHTML = `${i} mois`;
             if (i >= maxI) {
               clearInterval(myInterval);
               setTimeout(() => {
@@ -134,10 +134,10 @@
 
       function calc0() {
         calc.innerHTML = `
-        <h2>Analysis of a ${config.expectancy}-year life</h2>
-        <p>We start from the assumption of a ${
+        <h2>Analyse d'une vie de ${config.expectancy} ans</h2>
+        <p>Nous partons de l'hypothèse d'une vie de ${
           config.expectancy
-        }-year life, which is ${config.expectancy * 12} months (${
+        } ans, soit ${config.expectancy * 12} mois (${
           config.expectancy
         }x12).</p>`;
       }
@@ -159,7 +159,7 @@
         if (id) {
           elem.id = id;
         }
-        elem.innerHTML = text + " months" + (suffix ? suffix : "");
+        elem.innerHTML = text + " mois" + (suffix ? suffix : "");
         elem.className = "legend " + (css ? css : "");
         const rowIdx = year === 0 ? 1 : Math.ceil(year / 2);
         elem.style = `bottom:${-6 + rowIdx * 14}px`;
@@ -207,7 +207,7 @@
         const myInterval = setInterval(() => {
           nodes[i]?.classList.add("expired");
           i++;
-          t.innerHTML = `${totalCount - i} months to go`;
+          t.innerHTML = `${totalCount - i} mois restant à vivre`;
           if (i > stopIdx) {
             clearInterval(myInterval);
             setTimeout(() => {
@@ -227,7 +227,7 @@
           child.style = "";
           child.classList.remove("expired");
         }
-        $("total").innerHTML = `${nodes.length} months`;
+        $("total").innerHTML = `${nodes.length} mois`;
         setTimeout(() => {
           $("total")?.remove();
         }, 1000);
@@ -251,7 +251,7 @@
           addAxisNum(config.etudes);
           setTimeout(() => {
             const y = config.etudes / 2 + 1;
-            addZoneLegend("Study", "z-school", y);
+            addZoneLegend("Etudes", "z-school", y);
             addLegend(maxNode, y, "l-school");
             setTimeout(() => {
               retire();
@@ -273,7 +273,7 @@
           setTimeout(() => {
             const years = config.expectancy - config.retraite;
             const y = (config.retraite + config.expectancy) / 2 + 1;
-            addZoneLegend("Retirement", "z-retired", y);
+            addZoneLegend("Retraite", "z-retired", y);
             addLegend(years * 12, y, "l-retired");
             setTimeout(() => {
               calc1();
@@ -292,18 +292,18 @@
         const mRetraite = (yTotal - yRetraite) * 12;
 
         calc.innerHTML += `
-        <p>This time span is divided into three main periods: youth, working life, and retirement.</p>
-        <h3>Initial breakdown of ${mTotal} months</h3>
+        <p>Cette durée est repartie en trois grandes périodes: jeunesse, vie active et retraite.</p>
+        <h3>Répartition initiale des ${mTotal} mois</h3>
         <ul>
-          <li>${mYouth} months of youth (up to age ${yYouth}), which is ${yYouth} years x 12 months</li>
-          <li>${mRetraite} months of retirement (from age ${yRetraite} to ${yTotal}), which is ${
+          <li>${mYouth} mois de jeunesse (jusqu'a ${yYouth} ans) soit ${yYouth} ans x 12 mois</li>
+          <li>${mRetraite} mois de retraite (entre ${yRetraite} et ${yTotal} ans) soit ${
           yTotal - yRetraite
-        } years x 12 months</li>
+        } ans x 12 mois</li>
           <li>${
             (yRetraite - yYouth) * 12
-          } months of working life (from age ${yYouth} to ${yRetraite}), which is ${
+          } mois de vie active (de ${yYouth} a ${yRetraite} ans) soit ${
           yRetraite - yYouth
-        } x 12 months</li>
+        } x 12 mois</li>
         </ul>`;
       }
 
@@ -324,14 +324,14 @@
 
         setTimeout(() => {
           const y = 2 + (config.retraite + config.etudes) / 2;
-          addZoneLegend("Work life", "z-worklife", y);
+          addZoneLegend("Vie Active", "z-worklife", y);
           setTimeout(() => {
             const maxDodo = parseInt(vaMonths / 3);
             for (let i = 0; i < maxDodo; i++) {
               vieActive[i].classList.add("dodo");
             }
             setTimeout(() => {
-              addLegend(maxDodo, y0 + 8, "l-dodo", null, " sleeping");
+              addLegend(maxDodo, y0 + 8, "l-dodo", null, " à dormir");
               setTimeout(() => {
                 const maxBoulot = maxDodo + parseInt(vaMonths * 0.2);
                 for (let i = maxDodo; i < maxBoulot; i++) {
@@ -343,7 +343,7 @@
                     y0 + 4,
                     "l-boulot",
                     null,
-                    " working"
+                    "  à travailler"
                   );
                   setTimeout(() => {
                     for (let i = maxBoulot; i < vaMonths; i++) {
@@ -355,7 +355,7 @@
                         y0,
                         "l-perso",
                         null,
-                        " of personal time"
+                        " de temps personnel"
                       );
                       setTimeout(() => {
                         setButtons(true, true, true, false);
@@ -385,75 +385,73 @@
         const mPerso = mVA - mSleep - mWork;
 
         calc.innerHTML += `
-        <h3>Focus on the working life period (${mVA} months)</h3>
-
-        <h4 class="l-dodo"><div class="dodo"></div>Sleep time (${mSleep} months)</h4>
+        <h3>Focus sur la période de vie active (${mVA} mois)</h3>
+        <h4 class="l-dodo"><div class="dodo"></div>Le temps de sommeil (${mSleep} mois)</h4>
         <div class="indent">
-          <p>The working life lasts ${yVA} years (${yRetraite}-${yYouth}), which equals ${mVA} months (${yVA} x 12)</p>
-          <p>We sleep 8 hours per day, which is 1/3 of the time. So sleep during the working life lasts ${mSleep} months (${mVA}/3)</p>
+          <p>La vie active dure ${yVA} ans (${yRetraite}-${yYouth}) soit ${mVA} mois (${yVA} x 12)</p>
+          <p>On dort 8h par jour soit 1/3 du temps. Le sommeil pendant la vie active dure donc ${mSleep} mois (${mVA}/3)</p>
         </div>
-
-        <h4 class="l-boulot"><div class="boulot"></div>Work time (${mWork} months)</h4>
+        <h4 class="l-boulot"><div class="boulot"></div>Le temps de travail (${mWork} mois)</h4>
         <div class="indent">
-          <p>In France, the maximum number of working days per year is 218</p>
-          <p>The standard workday is 8 hours</p>
-          <p>This equals 1,744 hours worked per year (218 x 8h)</p>
-          <p>Over a working life of ${yVA} years, that adds up to ${
+          <p>En France, le nombre maximum de jours travaillés est de 218 jours par an</p>
+          <p>Le temps de travail est de 8h / jour</p>
+          <p>Cela représente 1744 heures travaillées par an (218 x 8h).</p>
+          <p>Sur la durée de vie active de ${yVA} ans cela représente ${
           yVA * 1744
-        } hours of work (1,744 x ${yVA})</p>
-          <p>There are 8,760 hours in a year (365 days x 24 hours)</p>
-          <p>So there are ${
+        } heures de travail (1744 x ${yVA})</p>
+          <p>Il y a 8760 heures dans une année (365 jours x 24 heures)</p>
+          <p>Il y a donc ${
             8760 * yVA
-          } hours in the ${yVA}-year working life (8,760 x ${yVA})</p>
-          <p>Work time represents 20% of the working life (${yVA * 1744} / ${
-          8760 * yVA
-        } = 19.9%, rounded to 20%)</p>
-          <p>Therefore, work time represents ${mWork} months (${mVA} x 19.9% = ${mWork2d}, rounded to ${mWork} months)</p>
+          } heures dans la vie active de ${yVA} ans (8760 x ${yVA})</p>
+          <p>Le temps de travail représente 20% de la vie active (${
+            yVA * 1744
+          } / ${8760 * yVA} = 19,9% arrondi à 20%)</p>
+          <p>Le temps de travail représente donc ${mWork} mois (${mVA} x 19,9% = ${mWork2d} arrondi à ${mWork} mois)</p>
         </div>
-        <h4 class="l-perso"><div class="perso"></div>Personal awake time (${mPerso} months)</h4>
+        <h4 class="l-perso"><div class="perso"></div>Le temps personnel éveillé (${mPerso} mois)</h4>
         <div class="indent">
-          <p>Personal awake time during working life = Total working life (${mVA} months) - Sleep time (${mSleep} months) - Work time (${mWork} months) = ${mPerso} months (${mVA} – ${mSleep} – ${mWork})</p>
+          <p>Le temps personnel éveillé pendant la vie active = Total de la vie active (${mVA} mois) - Temps de
+          sommeil (${mSleep} mois) - Temps travail pendant la vie active (${mWork} mois) = ${mPerso} mois (${mVA} – ${mSleep} – ${mWork})</p>
         </div>
-        <p><br/><a href="javascript:print()" class="print">Print</a></p>
+        <p><br/><a href="javascript:print()" class="print">Imprimer</a></p>
         <p class="cp"><br/><br/>© ${currentYear} <a href="https://www.laurentpellet.com" target="lp">Laurent Pellet</a> - developed by <a href="https://evoluteur.github.io/" target="og">Olivier Giulieri</a></p>`;
       }
     </script>
   </head>
   <body onload="setup()">
-    <h1>Time Management</h1>
-    <a href="index-french.html" class="flag"
-      ><img src="img/fr.gif" alt="French"
-    /></a>
+    <h1>Gestion du Temps</h1>
+    <a href="index.html" class="flag"><img src="img/en.gif" alt="English" /></a>
+
     <section>
-      <p>Taking a closer look at how you are spending your time...</p>
+      <p>
+        Un regard plus attentif sur la façon dont vous passez votre temps...
+      </p>
     </section>
 
     <section>
       <div id="inputs">
         <div>
           <div>
-            <label>Your age</label>
-            <div><input id="age" type="number" min="20" max="100" /> years</div>
-            <div><input id="ageM" type="number" min="0" max="12" /> months</div>
+            <label>Votre âge</label>
+            <div><input id="age" type="number" min="20" max="100" /> ans</div>
+            <div><input id="ageM" type="number" min="0" max="12" /> mois</div>
           </div>
           <div>
-            <label>Life expectancy</label>
+            <label>Espérance de vie</label>
             <div>
-              <input id="expectancy" type="number" min="60" max="120" /> years
+              <input id="expectancy" type="number" min="60" max="120" /> ans
             </div>
           </div>
         </div>
         <div>
           <div>
-            <label>Age at graduation</label>
-            <div>
-              <input id="etudes" type="number" min="16" max="35" /> years
-            </div>
+            <label>Âge à la fin des études</label>
+            <div><input id="etudes" type="number" min="16" max="35" /> ans</div>
           </div>
           <div>
-            <label>Retirement age</label>
+            <label>Âge de la retraite</label>
             <div>
-              <input id="retraite" type="number" min="18" max="120" /> years
+              <input id="retraite" type="number" min="18" max="120" /> ans
             </div>
           </div>
         </div>
@@ -469,19 +467,19 @@
         </svg>
       </div>
       <div id="actions">
-        <button onclick="build()">Go</button>
+        <button onclick="build()">Aller</button>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M14 16.94V12.94H5.08L5.05 10.93H14V6.94L19 11.94Z" />
         </svg>
-        <button onclick="hidePast()" disabled>Clear the past</button>
+        <button onclick="hidePast()" disabled>Effacer le passé</button>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M14 16.94V12.94H5.08L5.05 10.93H14V6.94L19 11.94Z" />
         </svg>
-        <button onclick="slice()" disabled>Slice it up</button>
+        <button onclick="slice()" disabled>Découper</button>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M14 16.94V12.94H5.08L5.05 10.93H14V6.94L19 11.94Z" />
         </svg>
-        <button onclick="clean()" disabled>Again</button>
+        <button onclick="clean()" disabled>Recommencer</button>
       </div>
     </section>
 
