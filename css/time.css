@@ -1,0 +1,298 @@
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 300;
+  color: white;
+  background-color: #1a212d;
+}
+h1 {
+  margin-bottom: 40px;
+  font-size: 3rem;
+}
+h2,
+h3,
+h4 {
+  margin-top: 30px;
+}
+@media screen {
+  h1,
+  h2,
+  h3 {
+    background: linear-gradient(white, #70ade6);
+    -webkit-background-clip: text;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+  }
+  .cp {
+    color: silver;
+  }
+}
+.flag {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+section {
+  margin: 20px 0 0;
+}
+#inputs {
+  position: relative;
+  min-width: 433px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-around;
+  overflow-y: hidden;
+  height: 185px;
+  transition: height 0.3s ease-in-out, opacity 0.3s;
+  opacity: 1;
+  padding: 0 30px 0 20px;
+  color: silver;
+  border-left: 5px solid #70ade6;
+  border-radius: 10px;
+  background-color: #2d3848;
+
+  > div {
+    > div {
+      margin: 20px 0;
+      > div {
+        display: inline-block;
+        white-space: nowrap;
+      }
+    }
+  }
+  label {
+    display: block;
+    margin-bottom: 4px;
+    color: white;
+  }
+  input {
+    font-size: 20px;
+    width: 70px;
+    padding: 4px 5px;
+    color: white;
+    background-color: #1a1a1a;
+    border-color: silver;
+  }
+  input.invalid {
+    border-color: red;
+  }
+}
+#inputs.hidden {
+  height: 0;
+}
+#reset {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+}
+#reset:hover {
+  fill: white;
+}
+
+#actions {
+  margin-top: 10px;
+}
+
+button {
+  font-size: 20px;
+  display: inline-block;
+  margin: 10px 0;
+  padding: 4px 10px;
+  border: silver solid 1px;
+  border-radius: 5px;
+}
+button:not(:disabled) {
+  cursor: pointer;
+  &:hover {
+    background-color: #f7f4f4;
+  }
+}
+button:disabled {
+  color: silver;
+}
+a {
+  color: #4f94d4 !important;
+}
+
+svg {
+  position: relative;
+  top: 7px;
+  height: 30px;
+  width: 30px;
+  fill: silver;
+}
+
+#stage {
+  position: relative;
+  padding: 10px 20px;
+  transform-origin: top left;
+  margin: 10px 0 0 20px;
+}
+@media (max-width: 640px) {
+  #stage {
+    transform: scale(0.7);
+  }
+}
+@media (max-width: 400px) {
+  #stage {
+    transform: scale(0.6);
+  }
+}
+
+.axis {
+  position: absolute;
+  left: -30px;
+  width: 40px;
+  text-align: right;
+}
+.legend {
+  position: absolute;
+  left: 400px;
+  font-size: 20px;
+  white-space: nowrap;
+  animation: slide-legend 0.3s ease-in-out;
+}
+@media (max-width: 640px) {
+  .legend {
+    left: 380px;
+  }
+}
+@keyframes slide-legend {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+#age-legend {
+  color: orange;
+}
+
+.z-legend {
+  position: absolute;
+  left: 26px;
+  width: 334px;
+  text-align: center;
+  font-size: 22px;
+  text-shadow: 1px 1px 2px black;
+}
+.z-worklife {
+  animation: black2white 4s;
+}
+
+.life {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 2px;
+  width: 334px;
+  max-width: 334px;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  margin-bottom: 2px;
+  overflow-y: hidden;
+
+  > div {
+    height: 10px;
+    width: 10px;
+    border: silver solid 1px;
+    background-color: white;
+    border-radius: 2px;
+    transition: opacity 0.5s, background-color 0.5s, transform 0.5s ease-out 1s,
+      border-radius 0.5s ease-out 1s, border-color 0.5s ease-out 1s;
+  }
+
+  .school,
+  .retired {
+    background-color: grey !important;
+    transform: scale(1.14);
+    border-color: grey !important;
+    border-radius: 0 !important;
+  }
+
+  .expired {
+    animation: expire-pixel 1s ease-in;
+    animation-fill-mode: forwards;
+  }
+  .age {
+    background-color: orange !important;
+  }
+}
+.dodo {
+  background-color: #4f94d4 !important;
+}
+.boulot {
+  background-color: #cc0000 !important;
+}
+.perso {
+  background-color: #008a20 !important;
+}
+
+.l-dodo {
+  color: #4f94d4;
+}
+.l-boulot {
+  color: #cc0000;
+}
+.l-perso {
+  color: #008a20;
+}
+
+.l-dodo > div,
+.l-boulot > div,
+.l-perso > div {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border: solid 1px silver;
+  border-radius: 2px;
+  margin-right: 10px;
+}
+.indent {
+  padding-left: 23px;
+}
+
+@keyframes expire-pixel {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(800px);
+  }
+}
+
+@keyframes black2white {
+  from {
+    color: black;
+    text-shadow: 1px 1px 2px white;
+  }
+  to {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    color: black;
+  }
+  .print,
+  #actions {
+    display: none;
+  }
+  .l-retired,
+  .l-school {
+    color: black;
+  }
+}
