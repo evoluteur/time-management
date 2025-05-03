@@ -42,6 +42,17 @@ const loloConfig = {
 };
 const fields = ["etudes", "retraite", "expectancy", "age", "ageM"];
 const $ = (id) => document.getElementById(id);
+const num = (n) => {
+  let space = ",";
+  let sep = ".";
+  if (language === "FR") {
+    space = ".";
+    sep = ",";
+  }
+  const parts = n.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, space);
+  return parts.join(sep);
+};
 const setup = (lang) => {
   language = lang;
   i18n = strings[lang];
@@ -135,7 +146,7 @@ const build = () => {
     const myInterval = setInterval(() => {
       nodes[i].style = "";
       i++;
-      t.innerHTML = i + i18n.m;
+      t.innerHTML = num(i) + i18n.m;
       if (i >= maxI) {
         clearInterval(myInterval);
         setTimeout(() => {
@@ -158,14 +169,16 @@ function calc0() {
   <h2>Analysis of a ${config.expectancy}-year life</h2>
   <p>We start from the assumption of a ${
     config.expectancy
-  }-year life, which is ${config.expectancy * 12} months (${
+  }-year life, which is ${num(config.expectancy * 12)} months (${
           config.expectancy
         }x12).</p>`
       : `
   <h2>Analyse d'une vie de ${config.expectancy} ans</h2>
-  <p>Nous partons de l'hypothèse d'une vie de ${config.expectancy} ans, soit ${
-          config.expectancy * 12
-        } mois (${config.expectancy}x12).</p>`;
+  <p>Nous partons de l'hypothèse d'une vie de ${
+    config.expectancy
+  } ans, soit ${num(config.expectancy * 12)} mois (${
+          config.expectancy
+        }x12).</p>`;
 }
 
 const addAxisNum = (year, offset = 0, id) => {
@@ -233,7 +246,7 @@ const hidePast = () => {
   const myInterval = setInterval(() => {
     nodes[i]?.classList.add("expired");
     i++;
-    t.innerHTML = totalCount - i + i18n.mToGo;
+    t.innerHTML = num(totalCount - i) + i18n.mToGo;
     if (i > stopIdx) {
       clearInterval(myInterval);
       setTimeout(() => {
@@ -253,7 +266,7 @@ const showPast = () => {
     child.style = "";
     child.classList.remove("expired");
   }
-  $("total").innerHTML = nodes.length + i18n.m;
+  $("total").innerHTML = num(nodes.length) + i18n.m;
   setTimeout(() => {
     $("total")?.remove();
   }, 1000);
@@ -321,29 +334,29 @@ function calc1() {
     language === "EN"
       ? `
   <p>This time span is divided into three main periods: youth, working life, and retirement.</p>
-  <h3>Initial breakdown of ${mTotal} months</h3>
+  <h3>Initial breakdown of ${num(mTotal)} months</h3>
   <ul>
     <li>${mYouth} months of youth (up to age ${yYouth}), which is ${yYouth} years x 12 months</li>
     <li>${mRetraite} months of retirement (from age ${yRetraite} to ${yTotal}), which is ${
           yTotal - yRetraite
         } years x 12 months</li>
-    <li>${
+    <li>${num(
       (yRetraite - yYouth) * 12
-    } months of working life (from age ${yYouth} to ${yRetraite}), which is ${
+    )} months of working life (from age ${yYouth} to ${yRetraite}), which is ${
           yRetraite - yYouth
         } x 12 months</li>
   </ul>`
       : `
   <p>Cette durée est repartie en trois grandes périodes: jeunesse, vie active et retraite.</p>
-  <h3>Répartition initiale des ${mTotal} mois</h3>
+  <h3>Répartition initiale des ${num(mTotal)} mois</h3>
   <ul>
     <li>${mYouth} mois de jeunesse (jusqu'a ${yYouth} ans) soit ${yYouth} ans x 12 mois</li>
     <li>${mRetraite} mois de retraite (entre ${yRetraite} et ${yTotal} ans) soit ${
           yTotal - yRetraite
         } ans x 12 mois</li>
-    <li>${
+    <li>${num(
       (yRetraite - yYouth) * 12
-    } mois de vie active (de ${yYouth} a ${yRetraite} ans) soit ${
+    )} mois de vie active (de ${yYouth} a ${yRetraite} ans) soit ${
           yRetraite - yYouth
         } x 12 mois</li>
   </ul>`;
@@ -411,17 +424,13 @@ const split = () => {
 };
 
 function calc2() {
-  const yTotal = config.expectancy;
-  const mTotal = yTotal * 12;
   const yYouth = config.etudes;
-  const mYouth = yYouth * 12;
   const yRetraite = config.retraite;
-  const mRetraite = (yTotal - yRetraite) * 12;
   const yVA = yRetraite - yYouth;
   const mVA = yVA * 12;
   const mSleep = Math.round(mVA / 3);
   const mWork = Math.round((mVA * 19.9) / 100);
-  const mWork2d = (Math.round(mVA * 19.9) / 100 + "").replace(".", ",");
+  const mWork2d = Math.round(mVA * 19.9) / 100;
   const mPerso = mVA - mSleep - mWork;
 
   calc.innerHTML +=
@@ -440,17 +449,19 @@ function calc2() {
     <p>In France, the maximum number of working days per year is 218</p>
     <p>The standard workday is 8 hours</p>
     <p>This equals 1,744 hours worked per year (218 x 8h)</p>
-    <p>Over a working life of ${yVA} years, that adds up to ${
+    <p>Over a working life of ${yVA} years, that adds up to ${num(
           yVA * 1744
-        } hours of work (1,744 x ${yVA})</p>
+        )} hours of work (1,744 x ${yVA})</p>
     <p>There are 8,760 hours in a year (365 days x 24 hours)</p>
-    <p>So there are ${
+    <p>So there are ${num(
       8760 * yVA
-    } hours in the ${yVA}-year working life (8,760 x ${yVA})</p>
-    <p>Work time represents 20% of the working life (${yVA * 1744} / ${
+    )} hours in the ${yVA}-year working life (8,760 x ${yVA})</p>
+    <p>Work time represents 20% of the working life (${num(yVA * 1744)} / ${num(
           8760 * yVA
-        } = 19.9%, rounded to 20%)</p>
-    <p>Therefore, work time represents ${mWork} months (${mVA} x 19.9% = ${mWork2d}, rounded to ${mWork} months)</p>
+        )} = 19.9%, rounded to 20%)</p>
+    <p>Therefore, work time represents ${mWork} months (${mVA} x 19.9% = ${num(
+          mWork2d
+        )}, rounded to ${mWork} months)</p>
   </div>
   <h4 class="l-perso"><div class="perso"></div>Personal awake time (${mPerso} months)</h4>
   <div class="indent">
@@ -468,18 +479,20 @@ function calc2() {
   <div class="indent">
     <p>En France, le nombre maximum de jours travaillés est de 218 jours par an</p>
     <p>Le temps de travail est de 8h / jour</p>
-    <p>Cela représente 1744 heures travaillées par an (218 x 8h).</p>
-    <p>Sur la durée de vie active de ${yVA} ans cela représente ${
+    <p>Cela représente 1.744 heures travaillées par an (218 x 8h).</p>
+    <p>Sur la durée de vie active de ${yVA} ans cela représente ${num(
           yVA * 1744
-        } heures de travail (1744 x ${yVA})</p>
-    <p>Il y a 8760 heures dans une année (365 jours x 24 heures)</p>
-    <p>Il y a donc ${
+        )} heures de travail (1.744 x ${yVA})</p>
+    <p>Il y a 8.760 heures dans une année (365 jours x 24 heures)</p>
+    <p>Il y a donc ${num(
       8760 * yVA
-    } heures dans la vie active de ${yVA} ans (8760 x ${yVA})</p>
-    <p>Le temps de travail représente 20% de la vie active (${yVA * 1744} / ${
-          8760 * yVA
-        } = 19,9% arrondi à 20%)</p>
-    <p>Le temps de travail représente donc ${mWork} mois (${mVA} x 19,9% = ${mWork2d} arrondi à ${mWork} mois)</p>
+    )} heures dans la vie active de ${yVA} ans (8.760 x ${yVA})</p>
+    <p>Le temps de travail représente 20% de la vie active (${num(
+      yVA * 1744
+    )} / ${num(8760 * yVA)} = 19,9% arrondi à 20%)</p>
+    <p>Le temps de travail représente donc ${mWork} mois (${mVA} x 19,9% = ${num(
+          mWork2d
+        )} arrondi à ${mWork} mois)</p>
   </div>
   <h4 class="l-perso"><div class="perso"></div>Le temps personnel éveillé (${mPerso} mois)</h4>
   <div class="indent">
