@@ -127,41 +127,41 @@ const build = () => {
   life.innerHTML = "";
   life.style = "border-color:silver;";
 
-  setTimeout(() => {
-    addAxisNum(0);
-    const t = addLegend(0, config.expectancy / 2, "", "total");
-    for (let r = 0; r < config.expectancy; r++) {
-      const isOdd = r % 2 !== 0;
-      const pre = isOdd ? 12 : 0;
-      for (let c = 0; c < 12; c++) {
-        const pix = document.createElement("div");
-        pix.style = "opacity:0";
-        pix.setAttribute("data-col", pre + c);
-        life.append(pix);
-      }
+  addAxisNum(0);
+  const t = addLegend(0, config.expectancy / 2, "", "total");
+  const pixs = [];
+  for (let r = 0; r < config.expectancy; r++) {
+    const isOdd = r % 2 !== 0;
+    const pre = isOdd ? 12 : 0;
+    for (let c = 0; c < 12; c++) {
+      const pix = document.createElement("div");
+      pix.style = "opacity:0";
+      pix.setAttribute("data-col", pre + c);
+      pixs.push(pix);
     }
-    stage.scrollIntoView();
-    const nodes = Array.from(life.children);
-    const maxI = config.expectancy * 12;
+  }
+  life.append(...pixs);
+  stage.scrollIntoView();
+  const nodes = Array.from(life.children);
+  const maxI = config.expectancy * 12;
 
-    let i = 0;
-    const myInterval = setInterval(() => {
-      nodes[i].style = "";
-      i++;
-      t.innerHTML = num(i) + i18n.m;
-      if (i >= maxI) {
-        clearInterval(myInterval);
+  let i = 0;
+  const myInterval = setInterval(() => {
+    nodes[i].style = "";
+    i++;
+    t.innerHTML = num(i) + i18n.m;
+    if (i >= maxI) {
+      clearInterval(myInterval);
+      setTimeout(() => {
+        clearStyles();
+        addAxisNum(config.expectancy);
         setTimeout(() => {
-          clearStyles();
-          addAxisNum(config.expectancy);
-          setTimeout(() => {
-            setButtons(true, false, true, true);
-            calc0();
-          }, 50);
-        }, 500);
-      }
-    }, 5);
-  }, 500);
+          setButtons(true, false, true, true);
+          calc0();
+        }, 50);
+      }, 500);
+    }
+  }, 5);
 };
 
 function calc0() {
