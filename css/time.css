@@ -261,6 +261,9 @@ svg {
 .indent {
   padding-left: 23px;
 }
+footer {
+  margin-top: 40px;
+}
 
 @keyframes expire-pixel {
   from {
@@ -287,6 +290,7 @@ svg {
     -webkit-print-color-adjust: exact;
     color: black;
   }
+  .flag,
   .print,
   #actions {
     display: none;

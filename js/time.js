@@ -55,6 +55,7 @@ const setup = (lang) => {
   stage = $("stage");
   life = $("life");
   calc = $("calc");
+  $("cYear").innerHTML = currentYear;
 };
 
 const reset = () => {
@@ -455,8 +456,7 @@ function calc2() {
   <div class="indent">
     <p>Personal awake time during working life = Total working life (${mVA} months) - Sleep time (${mSleep} months) - Work time (${mWork} months) = ${mPerso} months (${mVA} – ${mSleep} – ${mWork})</p>
   </div>
-  <p><br/><a href="javascript:print()" class="print">Print</a></p>
-  <p class="cp"><br/><br/>© ${currentYear} <a href="https://www.laurentpellet.com" target="lp">Laurent Pellet</a> - developed by <a href="https://evoluteur.github.io/" target="og">Olivier Giulieri</a></p>`
+  <p><br/><a href="javascript:print()" class="print">Print</a></p>`
       : `
   <h3>Focus sur la période de vie active (${mVA} mois)</h3>
   <h4 class="l-dodo"><div class="dodo"></div>Le temps de sommeil (${mSleep} mois)</h4>
@@ -486,6 +486,5 @@ function calc2() {
     <p>Le temps personnel éveillé pendant la vie active = Total de la vie active (${mVA} mois) - Temps de
     sommeil (${mSleep} mois) - Temps travail pendant la vie active (${mWork} mois) = ${mPerso} mois (${mVA} – ${mSleep} – ${mWork})</p>
   </div>
-  <p><br/><a href="javascript:print()" class="print">Imprimer</a></p>
-  <p class="cp"><br/><br/>© ${currentYear} <a href="https://www.laurentpellet.com" target="lp">Laurent Pellet</a> - developed by <a href="https://evoluteur.github.io/" target="og">Olivier Giulieri</a></p>`;
+  <p><br/><a href="javascript:print()" class="print">Imprimer</a></p>`;
 }
