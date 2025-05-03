@@ -1,3 +1,7 @@
+/*
+    Time Management
+    (c) 2025 Laurent Pellet & Olivier Giulieri
+*/
 html {
   scroll-behavior: smooth;
 }
@@ -30,6 +34,9 @@ h4 {
   }
   .cp {
     color: silver;
+  }
+  footer {
+    margin-top: 50px;
   }
 }
 .flag {
@@ -258,11 +265,43 @@ svg {
   border-radius: 2px;
   margin-right: 10px;
 }
+#expArrow {
+  display: block;
+  position: absolute;
+  left: 400px;
+  font-size: 20px;
+  text-align: center;
+  width: 250px;
+  animation: show-arrow 0.3s ease-in-out;
+  > a {
+    color: orange !important;
+    text-decoration: none;
+    > svg {
+      height: 50px;
+      width: 50px;
+      fill: orange;
+      transition: transform 0.3s ease-in 0.05;
+    }
+  }
+}
+#expArrow:hover {
+  svg {
+    transform: scale(1.5);
+  }
+}
+@keyframes show-arrow {
+  0% {
+    opacity: 0.2;
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .indent {
   padding-left: 23px;
-}
-footer {
-  margin-top: 40px;
 }
 
 @keyframes expire-pixel {
@@ -292,6 +331,7 @@ footer {
   }
   .flag,
   .print,
+  #expArrow,
   #actions {
     display: none;
   }

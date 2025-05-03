@@ -11,6 +11,7 @@ const strings = {
     tSleep: " sleeping",
     tWork: " working",
     tPerso: " of personal time",
+    exp: "Explanations",
   },
   FR: {
     m: " mois",
@@ -21,6 +22,7 @@ const strings = {
     tSleep: " à dormir",
     tWork: " à travailler",
     tPerso: " de temps personnel",
+    exp: "Explications",
   },
 };
 let language = "EN";
@@ -138,7 +140,7 @@ const build = () => {
         life.append(pix);
       }
     }
-    life.scrollIntoView();
+    stage.scrollIntoView();
     const nodes = Array.from(life.children);
     const maxI = config.expectancy * 12;
 
@@ -410,9 +412,12 @@ const split = () => {
                   null,
                   i18n.tPerso
                 );
+                calc2();
                 setTimeout(() => {
                   setButtons(true, true, true, false);
-                  calc2();
+                  setTimeout(() => {
+                    explanationArrow(y0 / 2 - 8);
+                  }, 1000);
                 }, 500);
               }, 500);
             }, 500);
@@ -421,6 +426,17 @@ const split = () => {
       }, 500);
     }, 500);
   }, 500);
+};
+
+const explanationArrow = (rowIdx) => {
+  const elem = document.createElement("div");
+  elem.innerHTML = `<a href="#calc">
+    ${i18n.exp}<br/>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9,4H15V12H19.84L12,19.84L4.16,12H9V4Z" /></svg>
+  </a>`;
+  elem.id = "expArrow";
+  elem.style = `bottom:${-6 + rowIdx * 14}px`;
+  stage.appendChild(elem);
 };
 
 function calc2() {
@@ -437,13 +453,11 @@ function calc2() {
     language === "EN"
       ? `
   <h3>Focus on the working life period (${mVA} months)</h3>
-
   <h4 class="l-dodo"><div class="dodo"></div>Sleep time (${mSleep} months)</h4>
   <div class="indent">
     <p>The working life lasts ${yVA} years (${yRetraite}-${yYouth}), which equals ${mVA} months (${yVA} x 12)</p>
     <p>We sleep 8 hours per day, which is 1/3 of the time. So sleep during the working life lasts ${mSleep} months (${mVA}/3)</p>
   </div>
-
   <h4 class="l-boulot"><div class="boulot"></div>Work time (${mWork} months)</h4>
   <div class="indent">
     <p>In France, the maximum number of working days per year is 218</p>
