@@ -49,7 +49,7 @@ section {
 }
 #inputs {
   position: relative;
-  min-width: 433px;
+  min-width: 310px;
   display: flex;
   gap: 30px;
   align-items: center;
@@ -147,6 +147,7 @@ svg {
 @media (max-width: 640px) {
   #stage {
     transform: scale(0.7);
+    margin: 10px 0 0 0;
   }
 }
 @media (max-width: 400px) {
@@ -282,6 +283,13 @@ svg {
       fill: orange;
       transition: transform 0.3s ease-in 0.05;
     }
+  }
+}
+@media (max-width: 640px) {
+  #expArrow {
+    bottom: -120px !important;
+    left: 120px;
+    width: 140px;
   }
 }
 #expArrow:hover {
