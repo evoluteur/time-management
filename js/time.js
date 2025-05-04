@@ -129,7 +129,6 @@ const build = () => {
 
   addAxisNum(0);
   const t = addLegend(0, config.expectancy / 2, "", "total");
-  const pixs = [];
   for (let r = 0; r < config.expectancy; r++) {
     const isOdd = r % 2 !== 0;
     const pre = isOdd ? 12 : 0;
@@ -137,10 +136,9 @@ const build = () => {
       const pix = document.createElement("div");
       pix.style = "opacity:0";
       pix.setAttribute("data-col", pre + c);
-      pixs.push(pix);
+      life.append(pix);
     }
   }
-  life.append(...pixs);
   stage.scrollIntoView();
   const nodes = Array.from(life.children);
   const maxI = config.expectancy * 12;
@@ -149,7 +147,7 @@ const build = () => {
   const myInterval = setInterval(() => {
     nodes[i].style = "";
     i++;
-    t.innerHTML = num(i) + i18n.m;
+    t.innerHTML = (i > 999 ? num(i) : i) + i18n.m;
     if (i >= maxI) {
       clearInterval(myInterval);
       setTimeout(() => {
@@ -195,6 +193,10 @@ const addAxisNum = (year, offset = 0, id) => {
   stage.appendChild(elem);
 };
 
+const year2bottom = (year) => {
+  const rowIdx = year === 0 ? 1 : Math.ceil(year / 2);
+  return `bottom:${-6 + rowIdx * 14}px`;
+};
 const addLegend = (text, year, css, id, suffix) => {
   const elem = document.createElement("div");
   if (id) {
@@ -202,8 +204,7 @@ const addLegend = (text, year, css, id, suffix) => {
   }
   elem.innerHTML = text + i18n.m + (suffix ? suffix : "");
   elem.className = "legend " + (css ? css : "");
-  const rowIdx = year === 0 ? 1 : Math.ceil(year / 2);
-  elem.style = `bottom:${-6 + rowIdx * 14}px`;
+  elem.style = year2bottom(year);
   stage.appendChild(elem);
   return elem;
 };
@@ -212,8 +213,7 @@ const addZoneLegend = (text, css, year) => {
   const elem = document.createElement("div");
   elem.innerHTML = text;
   elem.className = "z-legend " + (css ? css : "");
-  const rowIdx = year === 0 ? 1 : Math.ceil(year / 2);
-  elem.style = `bottom:${-6 + rowIdx * 14}px`;
+  elem.style = year2bottom(year);
   stage.appendChild(elem);
 };
 
@@ -248,7 +248,8 @@ const hidePast = () => {
   const myInterval = setInterval(() => {
     nodes[i]?.classList.add("expired");
     i++;
-    t.innerHTML = num(totalCount - i) + i18n.mToGo;
+    const total = totalCount - i;
+    t.innerHTML = (total > 999 ? num(total) : total) + i18n.mToGo;
     if (i > stopIdx) {
       clearInterval(myInterval);
       setTimeout(() => {
