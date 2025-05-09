@@ -222,6 +222,10 @@ const clean = (noEnablement) => {
   stage.innerHTML = '<div id="life" class="life"></div>';
   calc.innerHTML = "";
   life = $("life");
+  const arrow = $("expArrow");
+  if (arrow) {
+    stage.removeChild(arrow);
+  }
   showForm();
   if (!noEnablement) {
     setTimeout(() => {
