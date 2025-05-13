@@ -194,7 +194,7 @@ svg {
   width: 334px;
   text-align: center;
   font-size: 22px;
-  text-shadow: 1px 1px 2px black;
+  text-shadow: 0 0 4px black;
 }
 .z-worklife {
   animation: black2white 4s;
@@ -283,7 +283,7 @@ svg {
       height: 50px;
       width: 50px;
       fill: orange;
-      transition: transform 0.3s ease-in 0.05;
+      transition: transform 0.2s ease-in 0.05s;
     }
   }
 }
@@ -326,11 +326,11 @@ svg {
 @keyframes black2white {
   from {
     color: black;
-    text-shadow: 1px 1px 2px white;
+    text-shadow: 0 0 4px white;
   }
   to {
     color: white;
-    text-shadow: 1px 1px 2px black;
+    text-shadow: 0 0 4px black;
   }
 }
 
