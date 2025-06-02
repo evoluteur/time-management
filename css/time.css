@@ -45,6 +45,10 @@ h4 {
   position: absolute;
   top: 20px;
   right: 20px;
+  > img {
+    width: 16px;
+    height: 11px;
+  }
 }
 section {
   margin: 20px 0 0;

@@ -25,6 +25,7 @@ const strings = {
     exp: "Explications",
   },
 };
+
 let language = "EN";
 let i18n = strings.EN;
 const today = new Date();
@@ -100,11 +101,11 @@ const saveConfig = () => {
 
 let stage;
 let life;
-const setButtons = (go, clearPast, slice, again) => {
+const setButtons = (go, clearPast, analyse, again) => {
   const btns = document.getElementsByTagName("button");
   btns[0].disabled = go;
   btns[1].disabled = clearPast;
-  btns[2].disabled = slice;
+  btns[2].disabled = analyse;
   btns[3].disabled = again;
 };
 
@@ -323,7 +324,7 @@ const retire = () => {
       addLegend(years * 12, y, "l-retired");
       setTimeout(() => {
         calc1();
-        split();
+        worklife();
       }, 500);
     }, 500);
   }, 500);
@@ -369,7 +370,7 @@ function calc1() {
   </ul>`;
 }
 
-const split = () => {
+const worklife = () => {
   const grid = Array.from(life.children);
   const grid1 = grid.slice(config.etudes * 12, config.retraite * 12);
   const vaMonths = grid1.length;
