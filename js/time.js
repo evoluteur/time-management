@@ -1,4 +1,4 @@
-// Time Management
+// The Power of the Hourglass
 // (c) 2025 Laurent Pellet & Olivier Giulieri
 
 const strings = {
@@ -117,6 +117,8 @@ const showForm = () => {
   $("inputs").className = "";
 };
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 const build = () => {
   const valid = getConfig();
   if (!valid) {
@@ -218,7 +220,7 @@ const addZoneLegend = (text, css, year) => {
   stage.appendChild(elem);
 };
 
-const clean = (noEnablement) => {
+const clean = async (noEnablement) => {
   setButtons(true, true, true, true);
   stage.innerHTML = '<div id="life" class="life"></div>';
   calc.innerHTML = "";
@@ -229,9 +231,8 @@ const clean = (noEnablement) => {
   }
   showForm();
   if (!noEnablement) {
-    setTimeout(() => {
-      setButtons(false, true, true, true);
-    }, 50);
+    await delay(50);
+    setButtons(false, true, true, true);
   }
 };
 
@@ -266,7 +267,7 @@ const hidePast = () => {
   }, 1);
 };
 
-const showPast = () => {
+const showPast = async () => {
   const maxNode = ageMonths();
   const nodes = life.childNodes;
   for (let i = 0; i < maxNode; i++) {
@@ -275,9 +276,8 @@ const showPast = () => {
     child.classList.remove("expired");
   }
   $("total").innerHTML = num(nodes.length) + i18n.m;
-  setTimeout(() => {
-    $("total")?.remove();
-  }, 1000);
+  await delay(1000);
+  $("total")?.remove();
 };
 
 const slice = () => {
@@ -286,7 +286,7 @@ const slice = () => {
   setTimeout(school, 1000);
 };
 
-const school = () => {
+const school = async () => {
   const maxNode = config.etudes * 12;
   const nodes = life.childNodes;
   for (let i = 0; i < maxNode; i++) {
@@ -294,20 +294,17 @@ const school = () => {
     child.style = "";
     child.className = "school";
   }
-  setTimeout(() => {
-    addAxisNum(config.etudes);
-    setTimeout(() => {
-      const y = config.etudes / 2 + 1;
-      addZoneLegend(i18n.school, "z-school", y);
-      addLegend(maxNode, y, "l-school");
-      setTimeout(() => {
-        retire();
-      }, 500);
-    }, 500);
-  }, 500);
+  await delay(500);
+  addAxisNum(config.etudes);
+  await delay(500);
+  const y = config.etudes / 2 + 1;
+  addZoneLegend(i18n.school, "z-school", y);
+  addLegend(maxNode, y, "l-school");
+  await delay(500);
+  retire();
 };
 
-const retire = () => {
+const retire = async () => {
   const minNode = config.retraite * 12 - 1;
   const nodes = life.childNodes;
   for (let i = nodes.length - 1; i > minNode; i--) {
@@ -315,19 +312,16 @@ const retire = () => {
     child.style = "";
     child.classList.add("retired");
   }
-  setTimeout(() => {
-    addAxisNum(config.retraite, 1);
-    setTimeout(() => {
-      const years = config.expectancy - config.retraite;
-      const y = (config.retraite + config.expectancy) / 2 + 1;
-      addZoneLegend(i18n.retirement, "z-retired", y);
-      addLegend(years * 12, y, "l-retired");
-      setTimeout(() => {
-        calc1();
-        worklife();
-      }, 500);
-    }, 500);
-  }, 500);
+  await delay(500);
+  addAxisNum(config.retraite, 1);
+  await delay(500);
+  const years = config.expectancy - config.retraite;
+  const y = (config.retraite + config.expectancy) / 2 + 1;
+  addZoneLegend(i18n.retirement, "z-retired", y);
+  addLegend(years * 12, y, "l-retired");
+  await delay(500);
+  calc1();
+  worklife();
 };
 
 function calc1() {
@@ -370,7 +364,7 @@ function calc1() {
   </ul>`;
 }
 
-const worklife = () => {
+const worklife = async () => {
   const grid = Array.from(life.children);
   const grid1 = grid.slice(config.etudes * 12, config.retraite * 12);
   const vaMonths = grid1.length;
@@ -380,58 +374,47 @@ const worklife = () => {
     const dcol = "" + i;
     vieActive.push(...grid1.filter((c) => c.getAttribute("data-col") === dcol));
   }
-
   const y0 = config.retraite - 20;
-
-  setTimeout(() => {
-    const y = 2 + (config.retraite + config.etudes) / 2;
-    addZoneLegend(i18n.wLife, "z-worklife", y);
-    setTimeout(() => {
-      const maxDodo = parseInt(vaMonths / 3);
-      for (let i = 0; i < maxDodo; i++) {
-        vieActive[i].classList.add("dodo");
-      }
-      setTimeout(() => {
-        addLegend(maxDodo, y0 + 8, "l-dodo", null, i18n.tSleep);
-        setTimeout(() => {
-          const maxBoulot = maxDodo + parseInt(vaMonths * 0.2);
-          for (let i = maxDodo; i < maxBoulot; i++) {
-            vieActive[i].classList.add("boulot");
-          }
-          setTimeout(() => {
-            addLegend(
-              maxBoulot - maxDodo,
-              y0 + 4,
-              "l-boulot",
-              null,
-              i18n.tWork
-            );
-            setTimeout(() => {
-              for (let i = maxBoulot; i < vaMonths; i++) {
-                vieActive[i].classList.add("perso");
-              }
-              setTimeout(() => {
-                addLegend(
-                  vaMonths - maxBoulot,
-                  y0,
-                  "l-perso",
-                  null,
-                  i18n.tPerso
-                );
-                calc2();
-                setTimeout(() => {
-                  setButtons(true, true, true, false);
-                  setTimeout(() => {
-                    explanationArrow(y0 / 2 - 8);
-                  }, 1000);
-                }, 500);
-              }, 500);
-            }, 500);
-          }, 500);
-        }, 500);
-      }, 500);
-    }, 500);
-  }, 500);
+  await delay(500);
+  const y = 2 + (config.retraite + config.etudes) / 2;
+  addZoneLegend(i18n.wLife, "z-worklife", y);
+  await delay(500);
+  const maxDodo = parseInt(vaMonths / 3);
+  for (let i = 0; i < maxDodo; i++) {
+    vieActive[i].classList.add("dodo");
+  }
+  await delay(500);
+  addLegend(maxDodo, y0 + 8, "l-dodo", null, i18n.tSleep);
+  await delay(500);
+  const maxBoulot = maxDodo + parseInt(vaMonths * 0.2);
+  for (let i = maxDodo; i < maxBoulot; i++) {
+    vieActive[i].classList.add("boulot");
+  }
+  await delay(500);
+  addLegend(
+    maxBoulot - maxDodo,
+    y0 + 4,
+    "l-boulot",
+    null,
+    i18n.tWork
+  );
+  await delay(500);
+  for (let i = maxBoulot; i < vaMonths; i++) {
+    vieActive[i].classList.add("perso");
+  }
+  await delay(500);
+  addLegend(
+    vaMonths - maxBoulot,
+    y0,
+    "l-perso",
+    null,
+    i18n.tPerso
+  );
+  calc2();
+  await delay(500);
+  explanationArrow(y0 / 2 - 8);
+  await delay(500);
+  setButtons(true, true, true, false);
 };
 
 const explanationArrow = (rowIdx) => {
