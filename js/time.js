@@ -215,7 +215,7 @@ const addLegend = (text, year, css, id, suffix) => {
 const addZoneLegend = (text, css, year) => {
   const elem = document.createElement("div");
   elem.innerHTML = text;
-  elem.className = "z-legend " + (css ? css : "");
+  elem.className = "z-legend " + css;
   elem.style = year2bottom(year);
   stage.appendChild(elem);
 };
@@ -283,12 +283,13 @@ const showPast = async () => {
 const slice = () => {
   setButtons(true, true, true, true);
   showPast();
-  setTimeout(school, 1000);
+  school();
 };
 
 const school = async () => {
   const maxNode = config.etudes * 12;
   const nodes = life.childNodes;
+  await delay(1000);
   for (let i = 0; i < maxNode; i++) {
     const child = nodes[i];
     child.style = "";
@@ -368,7 +369,6 @@ const worklife = async () => {
   const grid = Array.from(life.children);
   const grid1 = grid.slice(config.etudes * 12, config.retraite * 12);
   const vaMonths = grid1.length;
-
   const vieActive = [];
   for (let i = 0; i < 24; i++) {
     const dcol = "" + i;
