@@ -32,16 +32,19 @@ const today = new Date();
 const currentYear = today.getFullYear();
 const bDate = new Date("1969-09-26");
 let age = today.getFullYear() - bDate.getFullYear();
-const monthDiff = today.getMonth() - bDate.getMonth();
-if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < bDate.getDate())) {
+let monthDiff = today.getMonth() - bDate.getMonth();
+if (monthDiff < 0 || (monthDiff === 0 && (today.getDate() < bDate.getDate()))) {
   age--;
+  if(monthDiff < 0){
+    monthDiff = 11 + monthDiff;
+  }
 }
 const loloConfig = {
   etudes: 22,
   retraite: 64,
   expectancy: 84,
   age,
-  ageM: monthDiff < 0 ? -monthDiff : 0,
+  ageM: monthDiff,
 };
 const fields = ["etudes", "retraite", "expectancy", "age", "ageM"];
 const $ = (id) => document.getElementById(id);
