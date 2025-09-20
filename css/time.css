@@ -21,6 +21,9 @@ h3,
 h4 {
   margin-top: 30px;
 }
+div{
+  box-sizing: content-box;
+}
 @media screen {
   body {
     color: white;
