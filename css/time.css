@@ -229,6 +229,10 @@ svg {
       border-radius 0.5s ease-out 1s, border-color 0.5s ease-out 1s;
   }
 
+  .life.andr{
+    max-width: 322px;
+  }
+
   .school,
   .retired {
     background-color: grey !important;

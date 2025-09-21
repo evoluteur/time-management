@@ -59,6 +59,7 @@ const num = (n) => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, space);
   return parts.join(sep);
 };
+const isAndroid = () => navigator.userAgent.toLowerCase().includes('android');
 const setup = (lang) => {
   language = lang;
   i18n = strings[lang];
@@ -225,7 +226,8 @@ const addZoneLegend = (text, css, year) => {
 
 const clean = async (noEnablement) => {
   setButtons(true, true, true, true);
-  stage.innerHTML = '<div id="life" class="life"></div>';
+  const css = 'life' + isAndroid() ? ' andr' : '';
+  stage.innerHTML = `<div id="life" class="${css}"></div>`;
   calc.innerHTML = "";
   life = $("life");
   const arrow = $("expArrow");
