@@ -226,7 +226,7 @@ const addZoneLegend = (text, css, year) => {
 
 const clean = async (noEnablement) => {
   setButtons(true, true, true, true);
-  const css = 'life' + isAndroid() ? ' andr' : '';
+  const css = 'life' + (isAndroid() ? ' andr' : '');
   stage.innerHTML = `<div id="life" class="${css}"></div>`;
   calc.innerHTML = "";
   life = $("life");
