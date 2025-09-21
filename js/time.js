@@ -145,7 +145,7 @@ const build = () => {
       life.append(pix);
     }
   }
-  stage.scrollIntoView();
+  $("btnGo").scrollIntoView();
   const nodes = Array.from(life.children);
   const maxI = config.expectancy * 12;
 
