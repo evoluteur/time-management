@@ -1,4 +1,5 @@
 // The Power of the Hourglass
+// https://laurentpellet.com/le-pouvoir-du-sablier/
 // (c) 2025 Laurent Pellet & Olivier Giulieri
 
 const strings = {
