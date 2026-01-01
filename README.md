@@ -11,4 +11,4 @@ You may also want to take [the time-management test](https://evoluteur.github.io
 
 Developed by [Olivier Giulieri](https://evoluteur.github.io/).
 
-(c) 2025 [Laurent Pellet](https://www.laurentpellet.com/)
+(c) 2026 [Laurent Pellet](https://www.laurentpellet.com/)

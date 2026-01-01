@@ -1,6 +1,6 @@
 // The Power of the Hourglass
 // https://laurentpellet.com/le-pouvoir-du-sablier/
-// (c) 2025 Laurent Pellet & Olivier Giulieri
+// (c) 2026 Laurent Pellet & Olivier Giulieri
 
 const strings = {
   EN: {
@@ -34,9 +34,9 @@ const currentYear = today.getFullYear();
 const bDate = new Date("1969-09-26");
 let age = today.getFullYear() - bDate.getFullYear();
 let monthDiff = today.getMonth() - bDate.getMonth();
-if (monthDiff < 0 || (monthDiff === 0 && (today.getDate() < bDate.getDate()))) {
+if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < bDate.getDate())) {
   age--;
-  if(monthDiff < 0){
+  if (monthDiff < 0) {
     monthDiff = 11 + monthDiff;
   }
 }
@@ -60,7 +60,7 @@ const num = (n) => {
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, space);
   return parts.join(sep);
 };
-const isAndroid = () => navigator.userAgent.toLowerCase().includes('android');
+const isAndroid = () => navigator.userAgent.toLowerCase().includes("android");
 const setup = (lang) => {
   language = lang;
   i18n = strings[lang];
@@ -122,7 +122,7 @@ const showForm = () => {
   $("inputs").className = "";
 };
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const build = () => {
   const valid = getConfig();
@@ -227,7 +227,7 @@ const addZoneLegend = (text, css, year) => {
 
 const clean = async (noEnablement) => {
   setButtons(true, true, true, true);
-  const css = 'life' + (isAndroid() ? ' andr' : '');
+  const css = "life" + (isAndroid() ? " andr" : "");
   stage.innerHTML = `<div id="life" class="${css}"></div>`;
   calc.innerHTML = "";
   life = $("life");
@@ -397,25 +397,13 @@ const worklife = async () => {
     vieActive[i].classList.add("boulot");
   }
   await delay(500);
-  addLegend(
-    maxBoulot - maxDodo,
-    y0 + 4,
-    "l-boulot",
-    null,
-    i18n.tWork
-  );
+  addLegend(maxBoulot - maxDodo, y0 + 4, "l-boulot", null, i18n.tWork);
   await delay(500);
   for (let i = maxBoulot; i < vaMonths; i++) {
     vieActive[i].classList.add("perso");
   }
   await delay(500);
-  addLegend(
-    vaMonths - maxBoulot,
-    y0,
-    "l-perso",
-    null,
-    i18n.tPerso
-  );
+  addLegend(vaMonths - maxBoulot, y0, "l-perso", null, i18n.tPerso);
   calc2();
   await delay(500);
   explanationArrow(y0 / 2 - 8);

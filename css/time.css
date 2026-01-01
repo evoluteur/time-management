@@ -1,6 +1,6 @@
 /*
     The Power of the Hourglass
-    (c) 2025 Laurent Pellet & Olivier Giulieri
+    (c) 2026 Laurent Pellet & Olivier Giulieri
 */
 html {
   scroll-behavior: smooth;
@@ -21,7 +21,7 @@ h3,
 h4 {
   margin-top: 30px;
 }
-div{
+div {
   box-sizing: content-box;
 }
 @media screen {
@@ -245,7 +245,7 @@ svg {
     background-color: orange !important;
   }
 }
-.life.andr{
+.life.andr {
   max-width: 322px;
 }
 
